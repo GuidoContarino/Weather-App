@@ -22,6 +22,18 @@ function App() {
     }
   };
 
+  const celsiusToFahrenheit = (farenheit) => {
+    return ((farenheit - 32) * 5) / 9;
+  };
+
+  const mphToKph = (mph) => {
+    return mph / 1.60934;
+  };
+
+  const windSpeedInKph = (speed) => {
+    return mphToKph(speed).toFixed();
+  };
+
   // retorna el HTML que se va a renderizar
   return (
     <div className="app">
@@ -40,7 +52,9 @@ function App() {
             <p>{data.name}</p>
           </div>
           <div className="temp">
-            {data.main ? <h1>{data.main.temp.toFixed()}°F</h1> : null}
+            {data.main ? (
+              <h1>{celsiusToFahrenheit(data.main.temp).toFixed()}°C</h1>
+            ) : null}
           </div>
           <div className="description">
             {data.weather ? <p>{data.weather[0].main}</p> : null}
@@ -51,7 +65,9 @@ function App() {
           <div className="bottom">
             <div className="feels">
               {data.main ? (
-                <p className="bold">{data.main.feels_like.toFixed()}°F</p>
+                <p className="bold">
+                  {celsiusToFahrenheit(data.main.feels_like).toFixed()}°C
+                </p>
               ) : null}
               <p>S.Térmica</p>
             </div>
@@ -61,7 +77,7 @@ function App() {
             </div>
             <div className="wind">
               {data.wind ? (
-                <p className="bold">{data.wind.speed.toFixed()} MPH</p>
+                <p className="bold">{windSpeedInKph(data.wind.speed)} KM/H</p>
               ) : null}
               <p>Velocidad del Viento</p>
             </div>
@@ -82,7 +98,7 @@ En el contenedor "container", tengo dos secciones: "top" y "bottom". En "top" se
 
 En la sección "bottom", muestro información adicional como la sensación térmica, la humedad y la velocidad del viento. Estos datos se obtienen de la misma respuesta de la API de clima.
 
-Finalmente, uso algunos operadores ternarios para verificar si los datos de clima están disponibles antes de mostrarlos en la pantalla.*/
+Finalmente, uso algunos operadores ternarios para verificar si los datos de clima están disponibles antes de mostrarlos en la pantalla.s*/
 
 // exporta el componente para que pueda ser utilizado por otros componentes
 export default App;
